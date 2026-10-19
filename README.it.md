@@ -83,7 +83,13 @@ Le varianti a 3 bit sono un po' più veloci ma consumano più energia per token:
 3 bit costa più calcolo, macOS alza i clock della GPU (fino a 90 °C con qvex-q3). Per un Air senza
 ventola il default è quindi qvex-q4. Il modello di LM Studio resta usabile con `--model`.
 
-Ricostruirlo da zero (serve ~20 GB di disco per i pesi originali):
+I pesi pronti si scaricano da [Hugging Face](https://huggingface.co/Ry682/qvex-q4):
+
+```bash
+.venv/bin/hf download Ry682/qvex-q4 --local-dir models/qvex-q4
+```
+
+Oppure si può ricostruirlo da zero (serve ~20 GB di disco per i pesi originali):
 
 ```bash
 .venv/bin/python -m quant.data                      # testi di calibrazione e valutazione

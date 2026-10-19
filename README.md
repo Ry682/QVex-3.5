@@ -11,7 +11,7 @@ Web UI and OpenAI-compatible API included.
 - **Own Qwen3.5 forward pass** (24 Gated DeltaNet + 8 gated-attention layers) with a Metal kernel for the DeltaNet recurrence; the state can be saved for rollback.
 - **Thermal governor**: caps tok/s and pauses prefill to stay under a target temperature (Eco 70 °C / Balanced 80 °C / Max 95 °C). Power and temperature come from [`macmon`](https://github.com/vladkens/macmon), no sudo.
 - **MTP speculative decoding** using Qwen's own MTP head as draft model (~490 MB download, only the MTP tensors are fetched via HTTP Range).
-- **qvex-q4**: a 4-bit quantization built from the bf16 weights with an importance matrix (imatrix). Same MLX format, same speed and memory, **2.7x lower KL** than the stock MLX 4-bit.
+- **qvex-q4** ([weights on Hugging Face](https://huggingface.co/Ry682/qvex-q4)): a 4-bit quantization built from the bf16 weights with an importance matrix (imatrix). Same MLX format, same speed and memory, **2.7x lower KL** than the stock MLX 4-bit.
 - **Agent mode** with sandboxed tools; writing files and running Python require confirmation.
 
 ## Requirements
@@ -20,7 +20,7 @@ Web UI and OpenAI-compatible API included.
 - [`uv`](https://github.com/astral-sh/uv) (the first run creates the Python 3.12 venv)
 - [`macmon`](https://github.com/vladkens/macmon) (optional, for power/temperature telemetry): `brew install macmon`
 - A Qwen3.5-9B MLX 4-bit model. Either:
-  - **qvex-q4** in `models/qvex-q4/` (see "Getting the model" below), or
+  - **qvex-q4** in `models/qvex-q4/` (download it from [Hugging Face](https://huggingface.co/Ry682/qvex-q4), see "Getting the model" below), or
   - the LM Studio build `lmstudio-community/Qwen3.5-9B-MLX-4bit` in `~/.lmstudio/models/` (used as fallback, and required by the `quant/`, `tests/` and `bench/` scripts for config/tokenizer).
 
 ## Quick start
@@ -72,7 +72,13 @@ MTP is faster but costs ~10–25% more energy per token (macOS raises GPU clocks
 
 ## Getting the model
 
-Rebuilding qvex-q4 from scratch needs ~20 GB of disk for the original weights:
+Download the ready-made weights from Hugging Face:
+
+```bash
+.venv/bin/hf download Ry682/qvex-q4 --local-dir models/qvex-q4
+```
+
+Or rebuild qvex-q4 from scratch, which needs ~20 GB of disk for the original weights:
 
 ```bash
 .venv/bin/python -m quant.data                      # calibration and evaluation texts
