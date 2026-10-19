@@ -1,0 +1,820 @@
+{
+ "bf16": {
+  "ppl": 5.753422737121582,
+  "kl": 0.0,
+  "top1": 1.0
+ },
+ "lmstudio": {
+  "bytes": 5950221142,
+  "date": "2026-10-19T17:26:14",
+  "kl": 0.06917000939138233,
+  "top1": 0.867138671875,
+  "ppl": 5.9823184072701,
+  "by_source": {
+   "it": {
+    "kl": 0.08362140506505966,
+    "top1": 0.8103841145833334
+   },
+   "en": {
+    "kl": 0.06471292364100616,
+    "top1": 0.8362630208333334
+   },
+   "code": {
+    "kl": 0.046545499749481675,
+    "top1": 0.9244140625
+   },
+   "chat": {
+    "kl": 0.07580091462781031,
+    "top1": 0.8916015625
+   }
+  },
+  "tasks": {
+   "passed": 21,
+   "total": 24,
+   "detail": [
+    {
+     "prompt": "Quanto fa 17 × 23? Rispondi solo con il numero.",
+     "ok": true,
+     "answer": "391"
+    },
+    {
+     "prompt": "Un treno percorre 180 km in 2 ore e 15 minuti. Qual è la vel",
+     "ok": false,
+     "answer": "60"
+    },
+    {
+     "prompt": "Converti 3,5 ore in minuti. Rispondi solo con il numero.",
+     "ok": true,
+     "answer": "210"
+    },
+    {
+     "prompt": "Qual è il 15% di 240? Rispondi solo con il numero.",
+     "ok": true,
+     "answer": "36"
+    },
+    {
+     "prompt": "Calcola la media di 4, 8, 15, 16, 23, 42. Rispondi solo con ",
+     "ok": false,
+     "answer": "19"
+    },
+    {
+     "prompt": "Quanti secondi ci sono in un giorno? Rispondi solo con il nu",
+     "ok": true,
+     "answer": "86400"
+    },
+    {
+     "prompt": "Qual è la capitale dell'Australia? Rispondi con una parola.",
+     "ok": true,
+     "answer": "Canberra"
+    },
+    {
+     "prompt": "In che anno è caduto il muro di Berlino? Rispondi solo con l",
+     "ok": true,
+     "answer": "1989"
+    },
+    {
+     "prompt": "Chi ha scritto 'I promessi sposi'? Rispondi con nome e cogno",
+     "ok": true,
+     "answer": "Alessandro Manzoni"
+    },
+    {
+     "prompt": "Qual è il simbolo chimico dell'oro?",
+     "ok": true,
+     "answer": "Il simbolo chimico dell'oro è **Au**.\n\nQuesto simbolo deriva dal nome latino dell'elemento, che era *aurum*, significante \"alba\" o \"sorgente di luce\". L'oro è un elemento chimico con il numero atomico 79 e appartiene al gruppo dei metalli nobili."
+    },
+    {
+     "prompt": "Quale pianeta è il più grande del sistema solare? Una parola",
+     "ok": true,
+     "answer": "Giove"
+    },
+    {
+     "prompt": "Se oggi è mercoledì, che giorno della settimana sarà tra 10 ",
+     "ok": false,
+     "answer": "Domenica"
+    },
+    {
+     "prompt": "Ordina alfabeticamente: pera, mela, banana, kiwi. Rispondi s",
+     "ok": true,
+     "answer": "banana, kiwi, mela, pera"
+    },
+    {
+     "prompt": "Elenca i primi 6 numeri primi separati da virgole, senza alt",
+     "ok": true,
+     "answer": "2, 3, 5, 7, 11, 13"
+    },
+    {
+     "prompt": "Traduci in inglese: 'Il gatto dorme sul divano.'",
+     "ok": true,
+     "answer": "The cat is sleeping on the sofa."
+    },
+    {
+     "prompt": "Riscrivi al passato remoto, prima persona: 'Io vado a Roma.'",
+     "ok": true,
+     "answer": "Io andai a Roma."
+    },
+    {
+     "prompt": "Rispondi solo con un oggetto JSON con le chiavi \"nome\" e \"et",
+     "ok": true,
+     "answer": "{\n  \"nome\": \"Mario\",\n  \"eta\": 34\n}"
+    },
+    {
+     "prompt": "Scrivi una funzione Python `is_palindrome(s)` che ignora spa",
+     "ok": true,
+     "answer": "```python\ndef is_palindrome(s):\n    cleaned = ''.join(c.lower() for c in s if c.isalnum())\n    return cleaned == cleaned[::-1]\n```"
+    },
+    {
+     "prompt": "Scrivi una funzione Python `fib(n)` che restituisce l'n-esim",
+     "ok": true,
+     "answer": "```python\ndef fib(n):\n    if n <= 0:\n        return 0\n    elif n == 1:\n        return 1\n    else:\n        a, b = 0, 1\n        for _ in range(2, n + 1):\n            a, b = b, a + b\n        return b\n```"
+    },
+    {
+     "prompt": "Scrivi una funzione Python `merge_intervals(intervals)` che ",
+     "ok": true,
+     "answer": "```python\ndef merge_intervals(intervals):\n    if not intervals:\n        return []\n    \n    # Ordina gli intervalli in base all'inizio\n    intervals.sort(key=lambda x: x[0])\n    \n    merged = [intervals[0]]\n    \n    for current_start, current_end in intervals[1:]:\n        last_start, last_end = merge"
+    },
+    {
+     "prompt": "Scrivi una funzione Python `flatten(lst)` che appiattisce li",
+     "ok": true,
+     "answer": "```python\ndef flatten(lst):\n    result = []\n    for item in lst:\n        if isinstance(item, list):\n            result.extend(flatten(item))\n        else:\n            result.append(item)\n    return result\n```"
+    },
+    {
+     "prompt": "Scrivi una funzione Python `roman(n)` che converte un intero",
+     "ok": true,
+     "answer": "```python\ndef roman(n):\n    if not (1 <= n <= 3999):\n        raise ValueError(\"Input must be between 1 and 3999.\")\n    \n    val = [\n        1000, 900, 500, 400,\n        100,  90,  50,  40,\n        10,   9,   5,   4,\n        1\n    ]\n    syms = [\n        \"M\",  \"CM\", \"D\",  \"CD\",\n        \"C\",  \"XC\", \"L\""
+    },
+    {
+     "prompt": "Scrivi una funzione Python `word_count(text)` che restituisc",
+     "ok": true,
+     "answer": "```python\nimport string\nfrom collections import Counter\n\ndef word_count(text):\n    # Converti tutto in minuscolo\n    text = text.lower()\n    \n    # Rimuovi la punteggiatura\n    text = text.translate(str.maketrans('', '', string.punctuation))\n    \n    # Dividi in parole\n    words = text.split()\n    \n"
+    },
+    {
+     "prompt": "Scrivi una funzione Python `second_largest(nums)` che restit",
+     "ok": true,
+     "answer": "```python\ndef second_largest(nums):\n    if len(nums) < 2:\n        return None\n    \n    distinct_nums = sorted(list(set(nums)), reverse=True)\n    \n    if len(distinct_nums) < 2:\n        return None\n        \n    return distinct_nums[1]\n```"
+    }
+   ]
+  },
+  "speed": {
+   "tps": 25.182106489911714,
+   "watts": 6.691267063775483,
+   "j_per_token": 0.26232431957440766,
+   "max_temp_c": 76.93511962890625,
+   "gpu_mhz": 1202.5654901960784,
+   "method": "engine decode",
+   "tokens": 512,
+   "runs": 2
+  }
+ },
+ "ours-q4": {
+  "bytes": 5038162559,
+  "date": "2026-10-19T17:28:51",
+  "bpw_linears": 4.5,
+  "frac_3bit": 0.0,
+  "kl": 0.025921408971771597,
+  "top1": 0.91904296875,
+  "ppl": 5.89141701680502,
+  "by_source": {
+   "it": {
+    "kl": 0.028741297001640003,
+    "top1": 0.8802083333333334
+   },
+   "en": {
+    "kl": 0.022639273044963677,
+    "top1": 0.90234375
+   },
+   "code": {
+    "kl": 0.020450988598167897,
+    "top1": 0.9541015625
+   },
+   "chat": {
+    "kl": 0.029301272549976904,
+    "top1": 0.93701171875
+   }
+  },
+  "tasks": {
+   "passed": 21,
+   "total": 24,
+   "detail": [
+    {
+     "prompt": "Quanto fa 17 × 23? Rispondi solo con il numero.",
+     "ok": true,
+     "answer": "391"
+    },
+    {
+     "prompt": "Un treno percorre 180 km in 2 ore e 15 minuti. Qual è la vel",
+     "ok": false,
+     "answer": "36"
+    },
+    {
+     "prompt": "Converti 3,5 ore in minuti. Rispondi solo con il numero.",
+     "ok": true,
+     "answer": "210"
+    },
+    {
+     "prompt": "Qual è il 15% di 240? Rispondi solo con il numero.",
+     "ok": true,
+     "answer": "36"
+    },
+    {
+     "prompt": "Calcola la media di 4, 8, 15, 16, 23, 42. Rispondi solo con ",
+     "ok": false,
+     "answer": "31.5"
+    },
+    {
+     "prompt": "Quanti secondi ci sono in un giorno? Rispondi solo con il nu",
+     "ok": true,
+     "answer": "86400"
+    },
+    {
+     "prompt": "Qual è la capitale dell'Australia? Rispondi con una parola.",
+     "ok": true,
+     "answer": "Canberra"
+    },
+    {
+     "prompt": "In che anno è caduto il muro di Berlino? Rispondi solo con l",
+     "ok": true,
+     "answer": "1989"
+    },
+    {
+     "prompt": "Chi ha scritto 'I promessi sposi'? Rispondi con nome e cogno",
+     "ok": true,
+     "answer": "Alessandro Manzoni"
+    },
+    {
+     "prompt": "Qual è il simbolo chimico dell'oro?",
+     "ok": true,
+     "answer": "Il simbolo chimico dell'oro è **Au**.\n\nQuesto simbolo deriva dal nome latino dell'elemento, che è *aurum*, significante \"l'alba\" o \"luce del mattino\". Il termine è stato adottato nella nomenclatura chimica internazionale per indicare questo metallo prezioso, che si trova naturalmente nella crosta te"
+    },
+    {
+     "prompt": "Quale pianeta è il più grande del sistema solare? Una parola",
+     "ok": true,
+     "answer": "Giove"
+    },
+    {
+     "prompt": "Se oggi è mercoledì, che giorno della settimana sarà tra 10 ",
+     "ok": false,
+     "answer": "Domenica"
+    },
+    {
+     "prompt": "Ordina alfabeticamente: pera, mela, banana, kiwi. Rispondi s",
+     "ok": true,
+     "answer": "banana, kiwi, mela, pera"
+    },
+    {
+     "prompt": "Elenca i primi 6 numeri primi separati da virgole, senza alt",
+     "ok": true,
+     "answer": "2, 3, 5, 7, 11, 13"
+    },
+    {
+     "prompt": "Traduci in inglese: 'Il gatto dorme sul divano.'",
+     "ok": true,
+     "answer": "The cat is sleeping on the sofa."
+    },
+    {
+     "prompt": "Riscrivi al passato remoto, prima persona: 'Io vado a Roma.'",
+     "ok": true,
+     "answer": "Io andai a Roma."
+    },
+    {
+     "prompt": "Rispondi solo con un oggetto JSON con le chiavi \"nome\" e \"et",
+     "ok": true,
+     "answer": "{\n  \"nome\": \"Mario\",\n  \"eta\": 34\n}"
+    },
+    {
+     "prompt": "Scrivi una funzione Python `is_palindrome(s)` che ignora spa",
+     "ok": true,
+     "answer": "```python\nimport string\n\ndef is_palindrome(s):\n    # Rimuovi spazi, punteggiatura e converti in minuscolo\n    cleaned = ''.join(char.lower() for char in s if char not in string.punctuation and not char.isspace())\n    # Confronta la stringa pulita con il suo inverso\n    return cleaned == cleaned[::-1"
+    },
+    {
+     "prompt": "Scrivi una funzione Python `fib(n)` che restituisce l'n-esim",
+     "ok": true,
+     "answer": "```python\ndef fib(n):\n    if n == 0:\n        return 0\n    elif n == 1:\n        return 1\n    else:\n        a, b = 0, 1\n        for _ in range(2, n + 1):\n            a, b = b, a + b\n        return b\n```"
+    },
+    {
+     "prompt": "Scrivi una funzione Python `merge_intervals(intervals)` che ",
+     "ok": true,
+     "answer": "```python\ndef merge_intervals(intervals):\n    if not intervals:\n        return []\n    \n    # Ordina gli intervalli in base all'inizio\n    intervals.sort(key=lambda x: x[0])\n    \n    merged = [intervals[0]]\n    \n    for current_start, current_end in intervals[1:]:\n        last_start, last_end = merge"
+    },
+    {
+     "prompt": "Scrivi una funzione Python `flatten(lst)` che appiattisce li",
+     "ok": true,
+     "answer": "```python\ndef flatten(lst):\n    result = []\n    for item in lst:\n        if isinstance(item, list):\n            result.extend(flatten(item))\n        else:\n            result.append(item)\n    return result\n```"
+    },
+    {
+     "prompt": "Scrivi una funzione Python `roman(n)` che converte un intero",
+     "ok": true,
+     "answer": "```python\ndef roman(n):\n    val = [1000, 900, 500, 400, 100, 90, 50, 40, 10, 9, 5, 4, 1]\n    syms = [\"M\", \"CM\", \"D\", \"CD\", \"C\", \"XC\", \"L\", \"XL\", \"X\", \"IX\", \"V\", \"IV\", \"I\"]\n    roman_num = ''\n    i = 0\n    while n > 0:\n        for _ in range(n // val[i]):\n            roman_num += syms[i]\n            "
+    },
+    {
+     "prompt": "Scrivi una funzione Python `word_count(text)` che restituisc",
+     "ok": true,
+     "answer": "```python\nimport string\n\ndef word_count(text):\n    # Rimuovi la punteggiatura\n    text = text.translate(str.maketrans('', '', string.punctuation))\n    \n    # Converti in minuscolo e dividi in parole\n    words = text.lower().split()\n    \n    # Conta le occorrenze\n    count = {}\n    for word in words:"
+    },
+    {
+     "prompt": "Scrivi una funzione Python `second_largest(nums)` che restit",
+     "ok": true,
+     "answer": "```python\ndef second_largest(nums):\n    if len(nums) < 2:\n        return None\n    \n    distinct_nums = set(nums)\n    if len(distinct_nums) < 2:\n        return None\n    \n    sorted_nums = sorted(distinct_nums, reverse=True)\n    return sorted_nums[1]\n```"
+    }
+   ]
+  },
+  "speed": {
+   "tps": 24.242227933488323,
+   "watts": 6.323082576954397,
+   "j_per_token": 0.26098927573143405,
+   "max_temp_c": 76.20210647583008,
+   "gpu_mhz": 1273.3040699382898,
+   "method": "engine decode",
+   "tokens": 512,
+   "runs": 2
+  }
+ },
+ "ours-mix40": {
+  "bytes": 4529930829,
+  "date": "2026-10-19T17:31:35",
+  "bpw_linears": 3.9876453488372094,
+  "frac_3bit": 0.5123546511627907,
+  "kl": 0.06644054786302149,
+  "top1": 0.86923828125,
+  "ppl": 6.130414544605463,
+  "by_source": {
+   "it": {
+    "kl": 0.08060570309559505,
+    "top1": 0.814453125
+   },
+   "en": {
+    "kl": 0.06174251685539881,
+    "top1": 0.8391927083333334
+   },
+   "code": {
+    "kl": 0.04746097903698683,
+    "top1": 0.9224609375
+   },
+   "chat": {
+    "kl": 0.07044071548928817,
+    "top1": 0.8946940104166666
+   }
+  },
+  "tasks": {
+   "passed": 21,
+   "total": 24,
+   "detail": [
+    {
+     "prompt": "Quanto fa 17 × 23? Rispondi solo con il numero.",
+     "ok": true,
+     "answer": "391"
+    },
+    {
+     "prompt": "Un treno percorre 180 km in 2 ore e 15 minuti. Qual è la vel",
+     "ok": false,
+     "answer": "60"
+    },
+    {
+     "prompt": "Converti 3,5 ore in minuti. Rispondi solo con il numero.",
+     "ok": true,
+     "answer": "210"
+    },
+    {
+     "prompt": "Qual è il 15% di 240? Rispondi solo con il numero.",
+     "ok": true,
+     "answer": "36"
+    },
+    {
+     "prompt": "Calcola la media di 4, 8, 15, 16, 23, 42. Rispondi solo con ",
+     "ok": false,
+     "answer": "20"
+    },
+    {
+     "prompt": "Quanti secondi ci sono in un giorno? Rispondi solo con il nu",
+     "ok": true,
+     "answer": "86400"
+    },
+    {
+     "prompt": "Qual è la capitale dell'Australia? Rispondi con una parola.",
+     "ok": true,
+     "answer": "Canberra"
+    },
+    {
+     "prompt": "In che anno è caduto il muro di Berlino? Rispondi solo con l",
+     "ok": true,
+     "answer": "1989"
+    },
+    {
+     "prompt": "Chi ha scritto 'I promessi sposi'? Rispondi con nome e cogno",
+     "ok": true,
+     "answer": "Alessandro Manzoni"
+    },
+    {
+     "prompt": "Qual è il simbolo chimico dell'oro?",
+     "ok": true,
+     "answer": "Il simbolo chimico dell'oro è **Au**.\n\nQuesto simbolo deriva dal nome latino dell'elemento, che è *aurum*, un termine che significa \"brillante\" o \"sorgente di luce\". L'uso di questa abbreviazione è convenzione internazionale nella chimica e si ritrova anche in termini come \"oro\" (in italiano), \"gold"
+    },
+    {
+     "prompt": "Quale pianeta è il più grande del sistema solare? Una parola",
+     "ok": true,
+     "answer": "Giove"
+    },
+    {
+     "prompt": "Se oggi è mercoledì, che giorno della settimana sarà tra 10 ",
+     "ok": false,
+     "answer": "Domenica"
+    },
+    {
+     "prompt": "Ordina alfabeticamente: pera, mela, banana, kiwi. Rispondi s",
+     "ok": true,
+     "answer": "banana, kiwi, mela, pera"
+    },
+    {
+     "prompt": "Elenca i primi 6 numeri primi separati da virgole, senza alt",
+     "ok": true,
+     "answer": "2, 3, 5, 7, 11, 13"
+    },
+    {
+     "prompt": "Traduci in inglese: 'Il gatto dorme sul divano.'",
+     "ok": true,
+     "answer": "The cat is sleeping on the sofa."
+    },
+    {
+     "prompt": "Riscrivi al passato remoto, prima persona: 'Io vado a Roma.'",
+     "ok": true,
+     "answer": "Io andai a Roma."
+    },
+    {
+     "prompt": "Rispondi solo con un oggetto JSON con le chiavi \"nome\" e \"et",
+     "ok": true,
+     "answer": "{\"nome\": \"Mario\", \"eta\": 34}"
+    },
+    {
+     "prompt": "Scrivi una funzione Python `is_palindrome(s)` che ignora spa",
+     "ok": true,
+     "answer": "```python\ndef is_palindrome(s):\n    cleaned = ''.join(char.lower() for char in s if char.isalnum())\n    return cleaned == cleaned[::-1]\n```"
+    },
+    {
+     "prompt": "Scrivi una funzione Python `fib(n)` che restituisce l'n-esim",
+     "ok": true,
+     "answer": "```python\ndef fib(n):\n    if n <= 0:\n        return 0\n    elif n == 1:\n        return 1\n    else:\n        a, b = 0, 1\n        for _ in range(2, n + 1):\n            a, b = b, a + b\n        return b\n```"
+    },
+    {
+     "prompt": "Scrivi una funzione Python `merge_intervals(intervals)` che ",
+     "ok": true,
+     "answer": "```python\ndef merge_intervals(intervals):\n    if not intervals:\n        return []\n\n    # Ordina gli intervalli in base all'inizio\n    intervals.sort(key=lambda x: x[0])\n\n    merged = [intervals[0]]\n\n    for current_start, current_end in intervals[1:]:\n        last_start, last_end = merged[-1]\n\n     "
+    },
+    {
+     "prompt": "Scrivi una funzione Python `flatten(lst)` che appiattisce li",
+     "ok": true,
+     "answer": "```python\ndef flatten(lst):\n    result = []\n    for item in lst:\n        if isinstance(item, list):\n            result.extend(flatten(item))\n        else:\n            result.append(item)\n    return result\n```"
+    },
+    {
+     "prompt": "Scrivi una funzione Python `roman(n)` che converte un intero",
+     "ok": true,
+     "answer": "```python\ndef roman(n):\n    if not (1 <= n <= 3999):\n        raise ValueError(\"Input must be between 1 and 3999\")\n\n    val_map = [\n        (1000, 'M'),\n        (900, 'CM'),\n        (500, 'D'),\n        (400, 'CD'),\n        (100, 'C'),\n        (90, 'XC'),\n        (50, 'L'),\n        (40, 'XL'),\n       "
+    },
+    {
+     "prompt": "Scrivi una funzione Python `word_count(text)` che restituisc",
+     "ok": true,
+     "answer": "```python\nimport string\n\ndef word_count(text):\n    # Rimuove la punteggiatura\n    text = text.translate(str.maketrans('', '', string.punctuation))\n    \n    # Converte tutto in minuscolo\n    text = text.lower()\n    \n    # Divide il testo in parole\n    words = text.split()\n    \n    # Conta le occorren"
+    },
+    {
+     "prompt": "Scrivi una funzione Python `second_largest(nums)` che restit",
+     "ok": true,
+     "answer": "```python\ndef second_largest(nums):\n    if len(nums) < 2:\n        return None\n    \n    distinct_nums = list(set(nums))\n    if len(distinct_nums) < 2:\n        return None\n    \n    distinct_nums.sort(reverse=True)\n    return distinct_nums[1]\n```"
+    }
+   ]
+  },
+  "speed": {
+   "tps": 26.11952849503667,
+   "watts": 7.986918948239361,
+   "j_per_token": 0.30562411990646576,
+   "max_temp_c": 79.69395065307617,
+   "gpu_mhz": 1354.6588345864661,
+   "method": "engine decode",
+   "tokens": 512,
+   "runs": 2
+  }
+ },
+ "ours-mix38": {
+  "bytes": 4342137389,
+  "date": "2026-10-19T17:34:17",
+  "bpw_linears": 3.798328488372093,
+  "frac_3bit": 0.701671511627907,
+  "kl": 0.07787372833117842,
+  "top1": 0.86123046875,
+  "ppl": 6.209363743604923,
+  "by_source": {
+   "it": {
+    "kl": 0.09263928979635239,
+    "top1": 0.8056640625
+   },
+   "en": {
+    "kl": 0.07197647790114085,
+    "top1": 0.82421875
+   },
+   "code": {
+    "kl": 0.05523484833538532,
+    "top1": 0.916796875
+   },
+   "chat": {
+    "kl": 0.08492252541085084,
+    "top1": 0.8889973958333334
+   }
+  },
+  "tasks": {
+   "passed": 21,
+   "total": 24,
+   "detail": [
+    {
+     "prompt": "Quanto fa 17 × 23? Rispondi solo con il numero.",
+     "ok": true,
+     "answer": "391"
+    },
+    {
+     "prompt": "Un treno percorre 180 km in 2 ore e 15 minuti. Qual è la vel",
+     "ok": false,
+     "answer": "60"
+    },
+    {
+     "prompt": "Converti 3,5 ore in minuti. Rispondi solo con il numero.",
+     "ok": true,
+     "answer": "210"
+    },
+    {
+     "prompt": "Qual è il 15% di 240? Rispondi solo con il numero.",
+     "ok": true,
+     "answer": "36"
+    },
+    {
+     "prompt": "Calcola la media di 4, 8, 15, 16, 23, 42. Rispondi solo con ",
+     "ok": false,
+     "answer": "20"
+    },
+    {
+     "prompt": "Quanti secondi ci sono in un giorno? Rispondi solo con il nu",
+     "ok": true,
+     "answer": "86400"
+    },
+    {
+     "prompt": "Qual è la capitale dell'Australia? Rispondi con una parola.",
+     "ok": true,
+     "answer": "Canberra"
+    },
+    {
+     "prompt": "In che anno è caduto il muro di Berlino? Rispondi solo con l",
+     "ok": true,
+     "answer": "1989"
+    },
+    {
+     "prompt": "Chi ha scritto 'I promessi sposi'? Rispondi con nome e cogno",
+     "ok": true,
+     "answer": "Alessandro Manzoni"
+    },
+    {
+     "prompt": "Qual è il simbolo chimico dell'oro?",
+     "ok": true,
+     "answer": "Il simbolo chimico dell'oro è **Au**.\n\nQuesto simbolo deriva dal nome latino dell'elemento, *aurum*, che significa \"aurora\" o \"luce\". Il termine deriva a sua volta dal greco *chrysos*, che significa \"oro\". Nonostante il nome italiano sia \"oro\", il simbolo internazionale rimane Au.\n\nL'oro ha il numer"
+    },
+    {
+     "prompt": "Quale pianeta è il più grande del sistema solare? Una parola",
+     "ok": true,
+     "answer": "Giove"
+    },
+    {
+     "prompt": "Se oggi è mercoledì, che giorno della settimana sarà tra 10 ",
+     "ok": false,
+     "answer": "Domenica"
+    },
+    {
+     "prompt": "Ordina alfabeticamente: pera, mela, banana, kiwi. Rispondi s",
+     "ok": true,
+     "answer": "banana, kiwi, mela, pera"
+    },
+    {
+     "prompt": "Elenca i primi 6 numeri primi separati da virgole, senza alt",
+     "ok": true,
+     "answer": "2, 3, 5, 7, 11, 13"
+    },
+    {
+     "prompt": "Traduci in inglese: 'Il gatto dorme sul divano.'",
+     "ok": true,
+     "answer": "The cat is sleeping on the sofa."
+    },
+    {
+     "prompt": "Riscrivi al passato remoto, prima persona: 'Io vado a Roma.'",
+     "ok": true,
+     "answer": "Io andai a Roma."
+    },
+    {
+     "prompt": "Rispondi solo con un oggetto JSON con le chiavi \"nome\" e \"et",
+     "ok": true,
+     "answer": "{\"nome\": \"Mario\", \"eta\": 34}"
+    },
+    {
+     "prompt": "Scrivi una funzione Python `is_palindrome(s)` che ignora spa",
+     "ok": true,
+     "answer": "def is_palindrome(s):\n    cleaned = ''.join(c.lower() for c in s if c.isalnum())\n    return cleaned == cleaned[::-1]"
+    },
+    {
+     "prompt": "Scrivi una funzione Python `fib(n)` che restituisce l'n-esim",
+     "ok": true,
+     "answer": "```python\ndef fib(n):\n    if n <= 0:\n        return 0\n    elif n == 1:\n        return 1\n    else:\n        a, b = 0, 1\n        for _ in range(2, n + 1):\n            a, b = b, a + b\n        return b\n```"
+    },
+    {
+     "prompt": "Scrivi una funzione Python `merge_intervals(intervals)` che ",
+     "ok": true,
+     "answer": "```python\ndef merge_intervals(intervals):\n    if not intervals:\n        return []\n\n    # Ordina gli intervalli in base all'inizio\n    intervals.sort(key=lambda x: x[0])\n\n    merged = [intervals[0]]\n\n    for current_start, current_end in intervals[1:]:\n        last_start, last_end = merged[-1]\n\n     "
+    },
+    {
+     "prompt": "Scrivi una funzione Python `flatten(lst)` che appiattisce li",
+     "ok": true,
+     "answer": "```python\ndef flatten(lst):\n    result = []\n    for item in lst:\n        if isinstance(item, list):\n            result.extend(flatten(item))\n        else:\n            result.append(item)\n    return result\n```"
+    },
+    {
+     "prompt": "Scrivi una funzione Python `roman(n)` che converte un intero",
+     "ok": true,
+     "answer": "```python\ndef roman(n):\n    if not (1 <= n <= 3999):\n        raise ValueError(\"Input must be between 1 and 3999\")\n    \n    val = [\n        1000, 900, 500, 400,\n        100, 90, 50, 40,\n        10, 9, 5, 4,\n        1\n    ]\n    syms = [\n        'M', 'CM', 'D', 'CD',\n        'C', 'XC', 'L', 'XL',\n     "
+    },
+    {
+     "prompt": "Scrivi una funzione Python `word_count(text)` che restituisc",
+     "ok": true,
+     "answer": "```python\nimport string\n\ndef word_count(text):\n    # Traduci tutto in minuscolo\n    text = text.lower()\n    \n    # Rimuovi la punteggiatura\n    text = text.translate(str.maketrans('', '', string.punctuation))\n    \n    # Dividi il testo in parole\n    words = text.split()\n    \n    # Conta le occorrenz"
+    },
+    {
+     "prompt": "Scrivi una funzione Python `second_largest(nums)` che restit",
+     "ok": true,
+     "answer": "```python\ndef second_largest(nums):\n    if len(nums) < 2:\n        return None\n    \n    distinct_nums = list(set(nums))\n    if len(distinct_nums) < 2:\n        return None\n    \n    distinct_nums.sort(reverse=True)\n    return distinct_nums[1]\n```"
+    }
+   ]
+  },
+  "speed": {
+   "tps": 27.37162459396203,
+   "watts": 8.929461143477807,
+   "j_per_token": 0.32634279231426977,
+   "max_temp_c": 81.7873649597168,
+   "gpu_mhz": 1386.0363754165123,
+   "method": "engine decode",
+   "tokens": 512,
+   "runs": 2
+  }
+ },
+ "ours-q3": {
+  "bytes": 4046209553,
+  "date": "2026-10-19T17:36:57",
+  "bpw_linears": 3.5,
+  "frac_3bit": 1.0,
+  "kl": 0.109015619661659,
+  "top1": 0.840966796875,
+  "ppl": 6.421134876268606,
+  "by_source": {
+   "it": {
+    "kl": 0.1217089556157589,
+    "top1": 0.7809244791666666
+   },
+   "en": {
+    "kl": 0.09924768283963203,
+    "top1": 0.8011067708333334
+   },
+   "code": {
+    "kl": 0.07774278484284877,
+    "top1": 0.9064453125
+   },
+   "chat": {
+    "kl": 0.12726694780091444,
+    "top1": 0.8663736979166666
+   }
+  },
+  "tasks": {
+   "passed": 20,
+   "total": 24,
+   "detail": [
+    {
+     "prompt": "Quanto fa 17 × 23? Rispondi solo con il numero.",
+     "ok": true,
+     "answer": "391"
+    },
+    {
+     "prompt": "Un treno percorre 180 km in 2 ore e 15 minuti. Qual è la vel",
+     "ok": false,
+     "answer": "54"
+    },
+    {
+     "prompt": "Converti 3,5 ore in minuti. Rispondi solo con il numero.",
+     "ok": true,
+     "answer": "210"
+    },
+    {
+     "prompt": "Qual è il 15% di 240? Rispondi solo con il numero.",
+     "ok": true,
+     "answer": "36"
+    },
+    {
+     "prompt": "Calcola la media di 4, 8, 15, 16, 23, 42. Rispondi solo con ",
+     "ok": false,
+     "answer": "21"
+    },
+    {
+     "prompt": "Quanti secondi ci sono in un giorno? Rispondi solo con il nu",
+     "ok": true,
+     "answer": "86400"
+    },
+    {
+     "prompt": "Qual è la capitale dell'Australia? Rispondi con una parola.",
+     "ok": true,
+     "answer": "Canberra"
+    },
+    {
+     "prompt": "In che anno è caduto il muro di Berlino? Rispondi solo con l",
+     "ok": true,
+     "answer": "1989"
+    },
+    {
+     "prompt": "Chi ha scritto 'I promessi sposi'? Rispondi con nome e cogno",
+     "ok": true,
+     "answer": "Alessandro Manzoni"
+    },
+    {
+     "prompt": "Qual è il simbolo chimico dell'oro?",
+     "ok": true,
+     "answer": "Il simbolo chimico dell'oro è **Au**.\n\nQuesto simbolo deriva dal nome latino dell'elemento, che è *aurum*. La scelta di utilizzare \"Au\" invece di \"O\" (che è già assegnato all'ossigeno) è stata fatta per evitare confusione e per mantenere un legame con la terminologia classica. L'oro è un elemento ch"
+    },
+    {
+     "prompt": "Quale pianeta è il più grande del sistema solare? Una parola",
+     "ok": true,
+     "answer": "Giove"
+    },
+    {
+     "prompt": "Se oggi è mercoledì, che giorno della settimana sarà tra 10 ",
+     "ok": false,
+     "answer": "Domenica"
+    },
+    {
+     "prompt": "Ordina alfabeticamente: pera, mela, banana, kiwi. Rispondi s",
+     "ok": true,
+     "answer": "banana, kiwi, mela, pera"
+    },
+    {
+     "prompt": "Elenca i primi 6 numeri primi separati da virgole, senza alt",
+     "ok": true,
+     "answer": "2, 3, 5, 7, 11, 13"
+    },
+    {
+     "prompt": "Traduci in inglese: 'Il gatto dorme sul divano.'",
+     "ok": true,
+     "answer": "The cat is sleeping on the sofa."
+    },
+    {
+     "prompt": "Riscrivi al passato remoto, prima persona: 'Io vado a Roma.'",
+     "ok": true,
+     "answer": "Io andai a Roma."
+    },
+    {
+     "prompt": "Rispondi solo con un oggetto JSON con le chiavi \"nome\" e \"et",
+     "ok": true,
+     "answer": "{\"nome\": \"Mario\", \"eta\": 34}"
+    },
+    {
+     "prompt": "Scrivi una funzione Python `is_palindrome(s)` che ignora spa",
+     "ok": false,
+     "answer": "def is_palindrome(s):\n    cleaned = ''.join(c for c in s if c.isalnum())\n    return cleaned == cleaned[::-1]"
+    },
+    {
+     "prompt": "Scrivi una funzione Python `fib(n)` che restituisce l'n-esim",
+     "ok": true,
+     "answer": "```python\ndef fib(n):\n    if n <= 0:\n        return 0\n    elif n == 1:\n        return 1\n    else:\n        a, b = 0, 1\n        for _ in range(2, n + 1):\n            a, b = b, a + b\n        return b\n```"
+    },
+    {
+     "prompt": "Scrivi una funzione Python `merge_intervals(intervals)` che ",
+     "ok": true,
+     "answer": "```python\ndef merge_intervals(intervals):\n    if not intervals:\n        return []\n\n    # Ordina gli intervalli in base all'inizio\n    intervals.sort(key=lambda x: x[0])\n\n    merged = [intervals[0]]\n\n    for start, end in intervals:\n        last_start, last_end = merged[-1]\n\n        # Se l'inizio del"
+    },
+    {
+     "prompt": "Scrivi una funzione Python `flatten(lst)` che appiattisce li",
+     "ok": true,
+     "answer": "```python\ndef flatten(lst):\n    result = []\n    for item in lst:\n        if isinstance(item, list):\n            result.extend(flatten(item))\n        else:\n            result.append(item)\n    return result\n```"
+    },
+    {
+     "prompt": "Scrivi una funzione Python `roman(n)` che converte un intero",
+     "ok": true,
+     "answer": "```python\ndef roman(n):\n    if not 1 <= n <= 3999:\n        raise ValueError(\"Input must be between 1 and 3999\")\n    \n    values = [\n        (1000, 'M'), (900, 'CM'), (500, 'D'), (400, 'CD'),\n        (100, 'C'), (90, 'XC'), (50, 'L'), (40, 'XL'),\n        (10, 'X'), (9, 'IX'), (5, 'V'), (4, 'IV'), (1,"
+    },
+    {
+     "prompt": "Scrivi una funzione Python `word_count(text)` che restituisc",
+     "ok": true,
+     "answer": "```python\nimport string\n\ndef word_count(text):\n    # Converti il testo in minuscolo\n    text = text.lower()\n    \n    # Rimuovi la punteggiatura\n    text = text.translate(str.maketrans('', '', string.punctuation))\n    \n    # Dividi il testo in parole e rimuovi le parole vuote\n    words = text.split()"
+    },
+    {
+     "prompt": "Scrivi una funzione Python `second_largest(nums)` che restit",
+     "ok": true,
+     "answer": "def second_largest(nums):\n    if len(nums) < 2:\n        return None\n    \n    distinct_nums = list(set(nums))\n    if len(distinct_nums) < 2:\n        return None\n    \n    distinct_nums.sort(reverse=True)\n    return distinct_nums[1]"
+    }
+   ]
+  },
+  "speed": {
+   "tps": 28.36491960116943,
+   "watts": 10.573441495273322,
+   "j_per_token": 0.3733085763420271,
+   "max_temp_c": 86.04653549194336,
+   "gpu_mhz": 1446.0039682539682,
+   "method": "engine decode",
+   "tokens": 512,
+   "runs": 2
+  }
+ }
+}

@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>QVex</title>
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <header class="top">
+    <div class="brand"><mark>QVex</mark> on MacBook Air</div>
+    <div class="model"><span class="dot" id="statusDot"></span><span id="modelName">—</span>
+      <span class="state" id="modelState"></span>
+      <button type="button" class="btn" id="ejectBtn" title="Free the memory used by the model">Eject</button>
+    </div>
+    <label class="pick">Heat
+      <select id="modeSel"></select>
+    </label>
+    <label class="pick" id="mtpPick" hidden>Turbo
+      <select id="mtpSel">
+        <option value="off">Off · efficient</option>
+        <option value="auto">Auto · when cool</option>
+        <option value="on">On · fast</option>
+      </select>
+    </label>
+    <span class="spacer"></span>
+    <label class="pick">Reasoning
+      <select id="thinking">
+        <option value="0">Off</option>
+        <option value="512">Short</option>
+      </select>
+    </label>
+    <select id="maxTok">
+      <option value="1024">up to 1,024 tokens</option>
+      <option value="2048">up to 2,048 tokens</option>
+      <option value="4096" selected>up to 4,096 tokens</option>
+      <option value="8192">up to 8,192 tokens</option>
+    </select>
+    <button type="button" class="btn" id="newChat">New chat</button>
+  </header>
+
+  <section class="board">
+    <div class="cell">
+      <div class="big" id="mTtft">—</div><div class="lbl">Time to first token</div>
+      <div class="bar"><div class="bk"><span>GPU</span><b id="gpuVal">—</b></div><i><u id="gpuBar"></u></i></div>
+    </div>
+    <div class="cell">
+      <div class="big" id="mTps">—</div><div class="lbl">Generation</div>
+      <div class="bar"><div class="bk"><span>CPU</span><b id="cpuVal">—</b></div><i><u id="cpuBar"></u></i></div>
+    </div>
+    <div class="cell">
+      <div class="big" id="mPre">—</div><div class="lbl">Prompt reading</div>
+      <div class="bar"><div class="bk"><span>Memory</span><b id="memVal">—</b></div><i><u id="memBar"></u></i></div>
+    </div>
+    <div class="cell">
+      <div class="big" id="mTok">—</div><div class="lbl">Tokens generated</div>
+      <div class="bar"><div class="bk"><span>Temperature</span><b id="tempVal">—</b></div><i><u id="tempBar"></u><em id="targetMark"></em></i></div>
+    </div>
+    <div class="cell">
+      <div class="big" id="mDur">—</div><div class="lbl">Duration</div>
+      <div class="bar"><div class="bk"><span>Power</span><b id="wattVal">—</b></div><i><u id="wattBar"></u></i></div>
+    </div>
+  </section>
+
+  <main class="messages" id="messages">
+    <div class="empty" id="empty">
+      <h1 id="emptyTitle">Qwen3.5 9B · 4-bit</h1>
+      <p>Everything runs on this Mac. No data leaves the computer.</p>
+    </div>
+  </main>
+
+  <footer class="dock">
+    <div class="attached" id="attached" hidden></div>
+    <form class="composer" id="composer">
+      <button type="button" class="btn up" id="attachBtn">Attach text</button>
+      <input type="file" id="fileInput" multiple hidden
+             accept=".txt,.md,.py,.js,.ts,.json,.csv,.html,.css,.c,.h,.cpp,.mm,.swift,.java,.go,.rs,.sh,.yaml,.yml,.toml,.xml,.log,text/*">
+      <textarea id="input" rows="1" placeholder="Type here. Enter to send, Shift+Enter for a new line." autofocus></textarea>
+      <button type="submit" class="send" id="sendBtn">Send</button>
+      <button type="button" class="send stop" id="stopBtn" hidden>Stop</button>
+    </form>
+    <div class="envbar">
+      <div class="seg" id="envSeg" role="radiogroup" aria-label="Environment">
+        <button type="button" role="radio" data-env="chat">Chat</button>
+        <button type="button" role="radio" data-env="agent" title="The model works on the files in a folder">Agent</button>
+      </div>
+      <div class="folder" id="folderWrap" hidden>
+        <button type="button" class="fbtn" id="folderBtn" aria-haspopup="menu">
+          <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M1.5 3.5h4.2l1.5 1.6h7.3v7.4h-13z"/></svg>
+          <span id="folderName">—</span><span class="caret">▾</span>
+        </button>
+        <div class="menu" id="folderMenu" role="menu" hidden></div>
+      </div>
+      <span class="envhint" id="envHint" hidden>reads on its own · asks before writing or running code</span>
+    </div>
+    <p class="note">Prompt reading only shows when the text is not already in memory: from the second message on
+      the engine remembers the conversation. "Generation" also counts reasoning tokens. Heat slows generation down
+      to stay below the chosen temperature.</p>
+  </footer>
+  <script src="/static/app.js"></script>
+</body>
+</html>

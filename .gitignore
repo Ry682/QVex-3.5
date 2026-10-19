@@ -1,0 +1,16 @@
+.venv/
+__pycache__/
+.DS_Store
+.claude/
+
+# weights and caches (too big for git; publish ours-q4 on Hugging Face)
+models/
+
+# raw measurement outputs: keep only the summaries cited in the report
+results/*
+!results/quant.json
+!results/thinking_budget.json
+
+experiments/native/qmv_spike
+data/*.npz
+data/*.log
