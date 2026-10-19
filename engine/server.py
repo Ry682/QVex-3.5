@@ -21,7 +21,7 @@ from .sampler import SamplingParams
 from .thermal import MODES
 
 LMSTUDIO_MODEL = Path.home() / ".lmstudio/models/lmstudio-community/Qwen3.5-9B-MLX-4bit"
-OUR_MODEL = Path(__file__).resolve().parent.parent / "models/ours-q4"  # built by quant/ (imatrix 4-bit)
+OUR_MODEL = Path(__file__).resolve().parent.parent / "models/qvex-q4"  # built by quant/ (imatrix 4-bit)
 DEFAULT_MODEL = OUR_MODEL if (OUR_MODEL / "model.safetensors").exists() else LMSTUDIO_MODEL
 WEB_DIR = Path(__file__).resolve().parent.parent / "web"
 

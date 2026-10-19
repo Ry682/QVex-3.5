@@ -5,10 +5,10 @@
 
 ## In breve
 
-- Abbiamo costruito **ours-q4**, una versione a 4 bit di Qwen3.5-9B quantizzata da noi a partire dai pesi originali.
+- Abbiamo costruito **qvex-q4**, una versione a 4 bit di Qwen3.5-9B quantizzata da noi a partire dai pesi originali.
 - **A parità di dimensione, velocità ed energia**, è **2,7 volte più fedele** al modello originale della versione MLX di LM Studio. Sceglie la stessa parola dell'originale il **91,9%** delle volte, contro l'86,7%.
 - Le varianti a 3 bit sono fino al 13% più veloci, ma **consumano più energia per parola** e scaldano di più (fino a 90 °C). Per un Air senza ventola non convengono.
-- **Decisione:** ours-q4 è ora il modello predefinito del motore.
+- **Decisione:** qvex-q4 è ora il modello predefinito del motore.
 
 ## 1. Il problema
 
@@ -44,11 +44,11 @@ Valutazione sulle 40 finestre mai viste in calibrazione:
 | Modello | Dimensione | KL ↓ | Stessa parola ↑ | Perplessità ↓ | Compiti | tok/s | J/token |
 |---|---|---|---|---|---|---|---|
 | Originale bf16 | 17,9 GB | 0 | 100% | 5,75 | – | – | – |
-| **ours-q4** | **5,04 GB** | **0,026** | **91,9%** | **5,89** | **21/24** | **24,2** | **0,26** |
+| **qvex-q4** | **5,04 GB** | **0,026** | **91,9%** | **5,89** | **21/24** | **24,2** | **0,26** |
 | LM Studio MLX 4 bit | 5,04 GB* | 0,069 | 86,7% | 5,98 | 21/24 | 25,2 | 0,26 |
-| ours-mix 4,0 bpw | 4,53 GB | 0,066 | 86,9% | 6,13 | 21/24 | 26,1 | 0,31 |
-| ours-mix 3,8 bpw | 4,34 GB | 0,078 | 86,1% | 6,21 | 21/24 | 27,4 | 0,33 |
-| ours-q3 | 4,05 GB | 0,109 | 84,1% | 6,42 | 20/24 | 28,4 | 0,37 |
+| qvex-mix 4,0 bpw | 4,53 GB | 0,066 | 86,9% | 6,13 | 21/24 | 26,1 | 0,31 |
+| qvex-mix 3,8 bpw | 4,34 GB | 0,078 | 86,1% | 6,21 | 21/24 | 27,4 | 0,33 |
+| qvex-q3 | 4,05 GB | 0,109 | 84,1% | 6,42 | 20/24 | 28,4 | 0,37 |
 
 *Il file di LM Studio pesa 5,95 GB perché include la parte per le immagini, che il motore non carica.
 
@@ -56,19 +56,19 @@ Valutazione sulle 40 finestre mai viste in calibrazione:
 
 | Modello | Italiano | Inglese | Codice | Chat |
 |---|---|---|---|---|
-| **ours-q4** | **0,029** | **0,023** | **0,021** | **0,029** |
+| **qvex-q4** | **0,029** | **0,023** | **0,021** | **0,029** |
 | LM Studio MLX | 0,084 | 0,065 | 0,047 | 0,076 |
 
 Il guadagno più grande è proprio sull'**italiano**: 2,9 volte più fedele.
 
-**Compiti:** tutti i modelli a 4 bit e i misti sbagliano gli stessi 3, cioè due calcoli e un giorno della settimana. Il modello li sbaglia anche senza compressione, se il ragionamento è spento. ours-q3 sbaglia in più una funzione Python: è il primo segno di degrado.
+**Compiti:** tutti i modelli a 4 bit e i misti sbagliano gli stessi 3, cioè due calcoli e un giorno della settimana. Il modello li sbaglia anche senza compressione, se il ragionamento è spento. qvex-q3 sbaglia in più una funzione Python: è il primo segno di degrado.
 
 ## 4. Velocità ed energia
 
 Misurate con il ciclo di decodifica del motore, 512 token, 2 giri, ogni prova partendo sotto i 50 °C (mediana dei due giri).
 
-- **ours-q4 e LM Studio** leggono gli stessi byte: velocità ed energia sono uguali entro il rumore della misura (±10%).
-- **Le varianti a 3 bit** sono più veloci, ma macOS alza il clock della GPU, perché spacchettare 3 bit richiede più calcolo. La potenza sale più della velocità: **+20–45% di energia per parola**, e ours-q3 ha toccato **90 °C**.
+- **qvex-q4 e LM Studio** leggono gli stessi byte: velocità ed energia sono uguali entro il rumore della misura (±10%).
+- **Le varianti a 3 bit** sono più veloci, ma macOS alza il clock della GPU, perché spacchettare 3 bit richiede più calcolo. La potenza sale più della velocità: **+20–45% di energia per parola**, e qvex-q3 ha toccato **90 °C**.
 - **Limite della misura:** il clock della GPU saliva anche con l'avanzare della sessione, e i modelli sono stati provati sempre nello stesso ordine. Una parte dell'aumento di energia può dipendere dall'ordine. La tendenza però è coerente in entrambi i giri.
 
 ## 5. Cosa abbiamo imparato
@@ -80,13 +80,13 @@ Misurate con il ciclo di decodifica del motore, 512 token, 2 giri, ogni prova pa
 
 ## 6. Prossimi passi possibili
 
-- **ours-q4+:** le parti più delicate a 5–6 bit (+1–2% di dimensione) per ridurre ancora il KL.
+- **qvex-q4+:** le parti più delicate a 5–6 bit (+1–2% di dimensione) per ridurre ancora il KL.
 - **Conversazioni salvate su disco**, come ds4: niente rilettura dopo un riavvio.
 - **Ripetere la misura di energia** in ordine alternato, per isolare l'effetto dei 3 bit dalla deriva dei clock.
 
 ## 7. Budget di ragionamento
 
-Stessi 24 compiti con ours-q4, ragionamento a budget diversi (`bench/thinking_budget.py`, risultati in `results/thinking_budget.json`). Media per compito:
+Stessi 24 compiti con qvex-q4, ragionamento a budget diversi (`bench/thinking_budget.py`, risultati in `results/thinking_budget.json`). Media per compito:
 
 | Ragionamento | Giusti | Token | Energia |
 |---|---|---|---|

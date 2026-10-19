@@ -60,7 +60,7 @@ LLM/
 | `bench/bench.py` | Velocità + watt + temperatura (anche in modalità prolungata) |
 | `bench/mtp_bench.py` | Normale vs MTP: tok/s, J/token, accettazione |
 
-## Il nostro modello (ours-q4)
+## Il nostro modello (qvex-q4)
 
 Come fa ds4 di antirez, il motore usa pesi quantizzati da noi invece della versione MLX generica.
 Si parte dai pesi originali bf16 di Qwen/Qwen3.5-9B e ogni matrice viene compressa a 4 bit
@@ -74,14 +74,14 @@ Misure su 40 finestre di valutazione mai viste in calibrazione (KL dal modello b
 | Modello | KL ↓ | stessa parola dell'originale | perplessità | compiti | tok/s | J/token |
 |---|---|---|---|---|---|---|
 | bf16 originale | 0 | 100% | 5,75 | – | – | – |
-| **ours-q4** | **0,026** | **91,9%** | **5,89** | 21/24 | 24,2 | 0,26 |
+| **qvex-q4** | **0,026** | **91,9%** | **5,89** | 21/24 | 24,2 | 0,26 |
 | LM Studio MLX 4-bit | 0,069 | 86,7% | 5,98 | 21/24 | 25,2 | 0,26 |
-| ours-mix 3/4 bit (4,0 bpw) | 0,066 | 86,9% | 6,13 | 21/24 | 26,1 | 0,31 |
-| ours-q3 | 0,109 | 84,1% | 6,42 | 20/24 | 28,4 | 0,37 |
+| qvex-mix 3/4 bit (4,0 bpw) | 0,066 | 86,9% | 6,13 | 21/24 | 26,1 | 0,31 |
+| qvex-q3 | 0,109 | 84,1% | 6,42 | 20/24 | 28,4 | 0,37 |
 
 Le varianti a 3 bit sono un po' più veloci ma consumano più energia per token: spacchettare
-3 bit costa più calcolo, macOS alza i clock della GPU (fino a 90 °C con ours-q3). Per un Air senza
-ventola il default è quindi ours-q4. Il modello di LM Studio resta usabile con `--model`.
+3 bit costa più calcolo, macOS alza i clock della GPU (fino a 90 °C con qvex-q3). Per un Air senza
+ventola il default è quindi qvex-q4. Il modello di LM Studio resta usabile con `--model`.
 
 Ricostruirlo da zero (serve ~20 GB di disco per i pesi originali):
 
@@ -90,9 +90,9 @@ Ricostruirlo da zero (serve ~20 GB di disco per i pesi originali):
 .venv/bin/python -m quant.reference                 # bf16 strato per strato: imatrix + riferimento
 .venv/bin/python -m quant.quantize cache --bits 4 3
 .venv/bin/python -m quant.quantize sensitivity      # costo in KL di ogni pezzo a 3 bit
-.venv/bin/python -m quant.build --name ours-q4 --all 4
-.venv/bin/python -m quant.evaluate lmstudio ours-q4 # qualità + compiti
-.venv/bin/python -m quant.speed lmstudio ours-q4    # velocità ed energia
+.venv/bin/python -m quant.build --name qvex-q4 --all 4
+.venv/bin/python -m quant.evaluate lmstudio qvex-q4 # qualità + compiti
+.venv/bin/python -m quant.speed lmstudio qvex-q4    # velocità ed energia
 ```
 
 ## Modalità termiche

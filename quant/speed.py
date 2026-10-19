@@ -1,6 +1,6 @@
 """Decode speed and energy through the engine's own decode loop (the path the server uses).
 
-    .venv/bin/python -m quant.speed lmstudio ours-q4 ours-mix40 --rounds 2 --tokens 512
+    .venv/bin/python -m quant.speed lmstudio qvex-q4 qvex-mix40 --rounds 2 --tokens 512
 
 Models are alternated round by round and every run starts below COOL_C, so clock boosts and
 heat soak hit all of them alike. The model is the only thing that changes between runs.

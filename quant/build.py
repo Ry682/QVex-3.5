@@ -1,7 +1,7 @@
 """Assemble one of our models from the quantized cache and write it as a normal MLX model folder.
 
-    .venv/bin/python -m quant.build --name ours-q4  --all 4
-    .venv/bin/python -m quant.build --name ours-mix --bpw 4.0     # 3/4-bit mix chosen by sensitivity
+    .venv/bin/python -m quant.build --name qvex-q4  --all 4
+    .venv/bin/python -m quant.build --name qvex-mix --bpw 4.0     # 3/4-bit mix chosen by sensitivity
 
 Mixed models: units are moved from 4 to 3 bits starting from the one that costs the least KL per
 byte saved (data/sensitivity_4to3.json), until the linears average the requested bits per weight

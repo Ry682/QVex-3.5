@@ -1,6 +1,6 @@
 """Compare models against the bf16 original: quality, capability checks, speed and energy.
 
-    .venv/bin/python -m quant.evaluate lmstudio ours-q4 ours-mix ...   (names under models/, or 'lmstudio')
+    .venv/bin/python -m quant.evaluate lmstudio qvex-q4 qvex-mix ...   (names under models/, or 'lmstudio')
 
 Quality, on the held-out evaluation windows (never used for calibration):
     KL       mean KL divergence from the bf16 model's next-token distribution (lower is better;
