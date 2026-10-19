@@ -23,11 +23,41 @@ Per la modalità Turbo (decodifica speculativa) serve la testa MTP. Si scarica u
 .venv/bin/python tools/fetch_mtp.py --bits 4
 ```
 
+## Terminale
+
+```bash
+./qvex
+```
+
+`./qvex` usa QVex dal terminale, parlando con lo stesso server. Se il server non è acceso lo avvia in
+background e lo ferma all'uscita; nel frattempo anche l'interfaccia web funziona allo stesso indirizzo.
+
+In un terminale interattivo si apre un'interfaccia a schermo intero (`engine/tui.py`, fatta con Textual). A sinistra
+c'è la conversazione: il ragionamento si chiude quando inizia la risposta, gli strumenti sono schede e i permessi
+compaiono in una finestra. A destra ci sono il **contesto** messaggio per messaggio rispetto al limite di 262.144 token
+(con i token che il motore tiene in memoria e la dimensione della cache KV), l'**ultima risposta** (prima parola, tok/s,
+token di ragionamento, J/token, temperatura massima), la **macchina** in tempo reale (temperatura rispetto
+all'obiettivo, potenza, GPU, CPU, memoria, modalità termica) e i totali della **sessione**.
+Tasti: `Esc` ferma, `Ctrl+N` nuova chat, `Ctrl+T` ragionamento, `Ctrl+G` agente, `Ctrl+O` modalità termica,
+`Ctrl+L` carica/espelli, `Ctrl+Q` esci. `./qvex --plain` usa la modalità semplice a righe.
+
+| Uso | Cosa fa |
+|---|---|
+| `./qvex` | interfaccia a schermo intero con contesto e statistiche (`--plain`: modalità a righe, Ctrl+C ferma, Ctrl+D esce) |
+| `./qvex "domanda"` | una risposta e poi esce; su stdout solo la risposta, ragionamento e statistiche su stderr |
+| `cat file.py \| ./qvex "spiegalo"` | il testo in ingresso viene allegato alla domanda |
+| `./qvex --agent [CARTELLA]` | modalità agente su una cartella (predefinita `~/QVex`); scrivere ed eseguire Python chiede `Allow? [y/N]` |
+| `./qvex --think` | ragionamento breve (512 token) invece che spento |
+
+Comandi nella chat: `/new`, `/agent [cartella]`, `/chat`, `/think on|off`, `/mode eco|balanced|max`,
+`/load`, `/eject`, `/status`, `/quit`. Una riga che finisce con `\` continua sulla successiva.
+
 ## Cartelle
 
 ```
 LLM/
 ├── start.sh          avvia tutto
+├── qvex              QVex nel terminale
 ├── requirements.txt  librerie Python
 ├── engine/           il motore (Python + MLX + kernel Metal)
 ├── web/              l'interfaccia nel browser
@@ -43,6 +73,7 @@ LLM/
 
 | File | Cosa fa |
 |---|---|
+| `engine/cli.py`, `engine/tui.py` | Client da terminale: interfaccia a schermo intero, risposte singole con pipe, agente con conferme |
 | `engine/server.py` | FastAPI: `/v1/chat/completions` (stream e non), telemetria, modalità, espelli/carica |
 | `engine/engine.py` | Thread di lavoro, prefill a blocchi, memoria della conversazione tra i turni, espulsione |
 | `engine/model.py` | Forward pass Qwen3.5 (24 strati Gated DeltaNet + 8 attenzione con gate), caricamento pesi, cache |

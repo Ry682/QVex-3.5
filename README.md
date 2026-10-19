@@ -13,6 +13,7 @@ Web UI and OpenAI-compatible API included.
 - **MTP speculative decoding** using Qwen's own MTP head as draft model (~490 MB download, only the MTP tensors are fetched via HTTP Range).
 - **qvex-q4** ([weights on Hugging Face](https://huggingface.co/Ry682/qvex-q4)): a 4-bit quantization built from the bf16 weights with an importance matrix (imatrix). Same MLX format, same speed and memory, **2.7x lower KL** than the stock MLX 4-bit.
 - **Agent mode** with sandboxed tools; writing files and running Python require confirmation.
+- **Terminal client** (`./qvex`): chat, one-shot answers with pipes, and agent mode with y/N approvals.
 
 ## Requirements
 
@@ -45,6 +46,34 @@ curl http://127.0.0.1:8080/v1/chat/completions -H 'Content-Type: application/jso
 ```
 
 Responses include `x_stats` (tok/s, J/token, max temperature, cached tokens).
+
+## Terminal
+
+```bash
+./qvex
+```
+
+`./qvex` is a terminal client of the same server; if no server is running it starts one in the background
+and stops it on exit (the web UI works at the same address meanwhile).
+
+In an interactive terminal it opens a full-screen interface (`engine/tui.py`, built with Textual): the conversation
+on the left (reasoning folds away when the answer starts, tool calls as cards, approvals in a dialog) and on the right
+the **context** message by message against the 262,144-token limit, with the tokens the engine keeps for the next
+turn and the KV cache size, the **last answer** (first token, tok/s, reasoning tokens, J/token, max °C), the **machine**
+live (temperature against the target, power, GPU, CPU, memory, heat mode) and **session** totals.
+Keys: `Esc` stop, `Ctrl+N` new chat, `Ctrl+T` reasoning, `Ctrl+G` agent, `Ctrl+O` heat mode, `Ctrl+L` load/eject, `Ctrl+Q` quit.
+`./qvex --plain` keeps the simple line mode.
+
+| Usage | What it does |
+|---|---|
+| `./qvex` | full-screen interface with context and live stats (`--plain`: line mode, Ctrl+C stops, Ctrl+D exits) |
+| `./qvex "question"` | one answer, then exit; only the answer goes to stdout, reasoning and stats to stderr |
+| `cat file.py \| ./qvex "explain this"` | stdin is attached to the question |
+| `./qvex --agent [FOLDER]` | agent mode on a folder (default `~/QVex`); writes and Python runs ask `Allow? [y/N]` |
+| `./qvex --think` | short reasoning (512 tokens) instead of none |
+
+Commands inside the chat: `/new`, `/agent [folder]`, `/chat`, `/think on|off`, `/mode eco|balanced|max`,
+`/load`, `/eject`, `/status`, `/quit`. End a line with `\` to continue it on the next one.
 
 ## qvex-q4 results
 
@@ -93,7 +122,7 @@ Or rebuild qvex-q4 from scratch, which needs ~20 GB of disk for the original wei
 ## Repository layout
 
 ```
-engine/       the engine (Python + MLX + Metal kernels)
+engine/       the engine (Python + MLX + Metal kernels), server and terminal client (cli.py)
 web/          browser UI
 tools/        fetch and prepare weights
 quant/        our quantization (imatrix, sensitivity, evaluation)

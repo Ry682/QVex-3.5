@@ -399,4 +399,5 @@ class Engine:
             "mtp_available": self.mtp_path is not None,
             "model_state": self.state,
             "memory_gb": mx.get_active_memory() / 1e9,
+            "context_cached": len(self.snapshot.tokens) if self.snapshot else 0,  # tokens kept for the next turn
         }

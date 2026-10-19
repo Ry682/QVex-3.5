@@ -15,10 +15,11 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.responses import FileResponse, JSONResponse, StreamingResponse
 from fastapi.staticfiles import StaticFiles
 
-from .agent import Agent, ToolError, check_root
+from .agent import SYSTEM, TOOLS, Agent, ToolError, check_root
 from .engine import DEFAULT_MTP, MTP_MODES, Engine
 from .sampler import SamplingParams
 from .thermal import MODES
+from .tokenizer import ChatTokenizer
 
 LMSTUDIO_MODEL = Path.home() / ".lmstudio/models/lmstudio-community/Qwen3.5-9B-MLX-4bit"
 OUR_MODEL = Path(__file__).resolve().parent.parent / "models/qvex-q4"  # built by quant/ (imatrix 4-bit)
@@ -225,6 +226,52 @@ async def agent_confirm(request: Request):
         raise HTTPException(404, "no pending action with this id")
     fut.set_result(bool(body.get("approve")))
     return {"ok": True}
+
+
+KV_BYTES_PER_TOKEN = 8 * 2 * 4 * 256 * 2  # 8 attention layers x K,V x 4 kv heads x 256 dims x bf16
+_ctx_tok: ChatTokenizer | None = None
+
+
+@app.post("/api/context")
+async def context(request: Request):
+    """Token count of a conversation as the model would see it, message by message.
+    Works with the model unloaded (only the tokenizer is read)."""
+    global _ctx_tok
+    body = await request.json()
+    msgs = [m for m in (body.get("messages") or []) if m.get("content")]
+    thinking = bool(body.get("enable_thinking", False))
+    tools = None
+    if body.get("agent"):
+        msgs = [{"role": "system", "content": SYSTEM.format(root=body.get("workspace") or DEFAULT_WORKSPACE)}] + msgs
+        tools = TOOLS
+    if _ctx_tok is None:
+        _ctx_tok = await asyncio.to_thread(ChatTokenizer, engine.model_dir)
+
+    def size(ms, t=tools):
+        return len(_ctx_tok.encode(_ctx_tok.render(ms, False, thinking, t)))
+
+    def count():
+        parts, prev, first = [], 0, 0
+        if tools:
+            # the template refuses a system prompt with no user query: measure it as the difference
+            q = msgs[1:2] or [{"role": "user", "content": ""}]
+            prev = size(msgs[:1] + q) - size(q, None)
+            parts.append({"role": "system+tools", "tokens": prev})
+            first = 1
+            if len(msgs) == 1:
+                return parts, prev
+        for i in range(first, len(msgs)):
+            n = size(msgs[: i + 1])
+            parts.append({"role": msgs[i]["role"], "tokens": n - prev})
+            prev = n
+        total = len(_ctx_tok.encode(_ctx_tok.render(msgs, True, thinking, tools))) if msgs else 0
+        return parts, total
+
+    parts, total = await asyncio.to_thread(count)
+    cfg = json.loads((Path(engine.model_dir) / "config.json").read_text())
+    limit = cfg.get("text_config", cfg).get("max_position_embeddings", 262144)
+    return {"total": total, "limit": limit, "parts": parts,
+            "kv_mb": total * KV_BYTES_PER_TOKEN / 1e6, "kv_bytes_per_token": KV_BYTES_PER_TOKEN}
 
 
 @app.get("/v1/models")

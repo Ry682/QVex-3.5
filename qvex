@@ -1,0 +1,5 @@
+#!/bin/sh
+# QVex nel terminale: ./qvex (chat), ./qvex "domanda", ./qvex --agent CARTELLA, ./qvex --help
+here="$(cd "$(dirname "$0")" && pwd -P)"
+[ -x "$here/.venv/bin/python" ] || { echo "Prima avvia una volta ./start.sh per creare l'ambiente Python." >&2; exit 1; }
+PYTHONPATH="$here${PYTHONPATH:+:$PYTHONPATH}" exec "$here/.venv/bin/python" -m engine.cli "$@"

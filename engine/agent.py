@@ -247,7 +247,7 @@ class Agent:
                 if safe > shown:
                     yield {"type": "content", "text": content[shown:safe]}
                     shown = safe
-            elif t == "stats":
+            elif t in ("stats", "start"):
                 yield ev
             elif t == "error":
                 raise RuntimeError(ev["message"])
@@ -307,9 +307,9 @@ class Agent:
                     try:
                         ok, out = True, await asyncio.to_thread(self.tools.call, c["name"], c["arguments"])
                     except ToolError as e:
-                        ok, out = False, f"Errore: {e}"
+                        ok, out = False, f"Error: {e}"
                     except Exception as e:  # a tool bug must not kill the run
-                        ok, out = False, f"Errore: {type(e).__name__}: {e}"
+                        ok, out = False, f"Error: {type(e).__name__}: {e}"
                 if len(out) > RESULT_CHARS:
                     out = out[:RESULT_CHARS] + f"\n[... truncated: {len(out) - RESULT_CHARS} more characters]"
                 yield {"type": "tool_result", "id": cid, "ok": ok, "approved": approved, "output": out}
